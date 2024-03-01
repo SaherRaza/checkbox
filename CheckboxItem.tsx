@@ -1,13 +1,15 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 import React from 'react';
+import Checkbox from 'expo-checkbox';
 
 type itemTypes = {
     item: any;
     onLongPress: any;
     onSelect: any;
+    isCheckBox: boolean;
 };
 
-const CheckboxItem = ({ item, onLongPress, onSelect }: itemTypes) => 
+const CheckboxItem = ({ item, onLongPress, onSelect, isCheckBox }: itemTypes) => 
 {
     return (
         <TouchableOpacity
@@ -42,6 +44,16 @@ const CheckboxItem = ({ item, onLongPress, onSelect }: itemTypes) =>
                     {'Company: ' + item.company.name}
                 </Text>
             </View>
+            {
+                isCheckBox && (
+                    <Checkbox
+                        style={styles.checkbox}
+                        value={item.isSelected}
+                        onValueChange={(newValue) => onSelect(newValue)}
+                        color={isCheckBox ? 'black' : "#4630EB"}
+                    />
+                )
+            }
 
         </TouchableOpacity>
     );
@@ -49,4 +61,8 @@ const CheckboxItem = ({ item, onLongPress, onSelect }: itemTypes) =>
 
 export default CheckboxItem;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    checkbox: {
+        margin: 8,
+    },
+});
